@@ -7,14 +7,28 @@ import * as serviceWorker from './serviceWorker';
 import configureStore from "./store/configureStore";
 import { Provider } from "react-redux";
 
+import { fetchTasks } from './store/actions/taskAction'
+
 const store = configureStore();
 
 console.log(JSON.stringify(store.getState()));
 
+const rootProvider = (
+  <Provider store={store}>
+    <App />
+  </Provider>
+);
+
 ReactDOM.render(
-  <Provider store={store}><App /></Provider>, 
+  <p>Loading...</p>, 
   document.getElementById('root')
 );
+store.dispatch(fetchTasks()).then(() => {
+  ReactDOM.render(
+    rootProvider, 
+    document.getElementById('root')
+  );
+});
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
