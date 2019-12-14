@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTasks } from '@fortawesome/free-solid-svg-icons';
 
 //Actions
-import { addTask } from '../../../store/actions/taskAction';
+import { addTask } from '../../store/actions/taskAction';
 
 import './task.scss'
 

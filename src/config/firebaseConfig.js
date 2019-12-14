@@ -1,14 +1,14 @@
 import * as firebase from 'firebase';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAl2oj-HLN2Mj9IEU3CycXrDI5ntFDgFXA",
-  authDomain: "my-day-planner.firebaseapp.com",
-  databaseURL: "https://my-day-planner.firebaseio.com",
-  projectId: "my-day-planner",
-  storageBucket: "my-day-planner.appspot.com",
-  messagingSenderId: "596649650311",
-  appId: "1:596649650311:web:8f7112edbe95fc4208b022",
-  measurementId: "G-3HZK3D2YRF"
+  apiKey: "AIzaSyCQ65kpNUPZeih9N4s45dUvx2AQBKFLGok",
+  authDomain: "karya-suchi.firebaseapp.com",
+  databaseURL: "https://karya-suchi.firebaseio.com",
+  projectId: "karya-suchi",
+  storageBucket: "karya-suchi.appspot.com",
+  messagingSenderId: "907885588791",
+  appId: "1:907885588791:web:fa4e71a52d91bb8e5aeab2",
+  measurementId: "G-HRY02W15EE"
 };
 
 firebase.initializeApp(firebaseConfig);

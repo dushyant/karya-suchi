@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendarCheck, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faClipboardList, faSignOutAlt, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { NavLink, Link } from "react-router-dom";
 import './header.scss';
 
@@ -8,20 +8,22 @@ const Header = () => (
   <div className="app-header">
     <nav className="navbar navbar-dark bg-primary">
       <Link to="/" className="navbar-brand">
-        <FontAwesomeIcon icon={faCalendarCheck} />
-        Daily Planner
+        <FontAwesomeIcon icon={faClipboardList} />
+        Karya Suchi <span>(Task List)</span>
       </Link>
       <div className="navbar-expand">
         <div className="navbar-nav">
-          <NavLink to="/myday" className="nav-item nav-link">My Day</NavLink>
           <NavLink to="/tasks" className="nav-item nav-link">Tasks</NavLink>
-          <NavLink to="/meals" className="nav-item nav-link">Meals</NavLink>
-          <NavLink to="/exercises" className="nav-item nav-link">Exercises</NavLink>
-          <NavLink to="/auth/login" 
+          {/* <NavLink to="/auth/login" 
             className="nav-item nav-link" 
             title="Sign out">
             <FontAwesomeIcon icon={faSignOutAlt} />
           </NavLink>
+          <NavLink to="/auth/login" 
+            className="nav-item nav-link" 
+            title="Sign in">
+            <FontAwesomeIcon icon={faSignInAlt} />
+          </NavLink> */}
         </div>
       </div>
     </nav>

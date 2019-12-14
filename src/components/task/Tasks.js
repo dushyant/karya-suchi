@@ -7,7 +7,7 @@ import { faTasks, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import './task.scss';
 
-class MyTasks extends Component {
+class Tasks extends Component {
 
   renderList = () => {
     return this.props.tasks && this.props.tasks.map( item => {
@@ -61,4 +61,4 @@ const mapStateToProps = (state) => {
   };
 }
 
-export default connect(mapStateToProps)(MyTasks);
+export default connect(mapStateToProps)(Tasks);
