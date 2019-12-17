@@ -20,6 +20,7 @@ function App() {
             <Route path="/" exact={true} component={Task} />
             <Route path="/tasks" exact component={Task} />
             <Route path="/tasks/new" component={TaskForm} />
+            <Route path="/tasks/:id" component={TaskForm} />
             {/* <Route path="/auth/login" component={Login} />
             <Route path="/auth/register" component={Register} /> */}
             <Route path="**" component={NotFound} />

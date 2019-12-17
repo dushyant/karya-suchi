@@ -4,6 +4,11 @@ import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+// Third-party
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+
+
 import configureStore from "./store/configureStore";
 import { Provider } from "react-redux";
 
@@ -20,7 +25,10 @@ const rootProvider = (
 );
 
 ReactDOM.render(
-  <p>Loading...</p>, 
+  <div className="loading">
+    <FontAwesomeIcon className="rotate" icon={faSpinner} />
+    <span>Loading</span>
+  </div>, 
   document.getElementById('root')
 );
 store.dispatch(fetchTasks()).then(() => {
