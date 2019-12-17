@@ -1,26 +1,44 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 // Third-party
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTasks } from '@fortawesome/free-solid-svg-icons';
+import uuidv4 from 'uuid/v4';
 
 //Actions
-import { addTask } from '../../store/actions/taskAction';
+import { addTask, updateTask } from '../../store/actions/taskAction';
 
 import './task.scss'
 
 class TaskForm extends Component {
 
-  state = {
-    task: '',
-    priority: ''
+  constructor(props) {
+    super(props);
+
+
+    const { task, priority, createdAt, completed } = props.task;
+
+    this.state = {
+      task: task || '',
+      priority: priority || '',
+      createdAt: createdAt || moment().valueOf(),
+      completed: completed || false,
+      newtask: task ? false : true
+    };
   }
 
   onFormSubmit = (e) => {
     e.preventDefault();
-    this.props.addTask(this.state);
+    const { task, priority, completed, newtask } = this.state;
+    const { id } = this.props.task;
+    const taskObj = {
+      task, priority, completed,
+      createdAt: moment().valueOf()
+    }
+    newtask ? this.props.addTask(taskObj) : this.props.updateTask(id, taskObj)
     this.props.history.push('/tasks');
   }
 
@@ -53,6 +71,7 @@ class TaskForm extends Component {
                   className="form-control"
                   placeholder="e.g. Buy Milk"
                   id="inputTaskName"
+                  value={this.state.task}
                   onChange={this.handleChange} />
                 {/* <div className="alert alert-danger mt-1" role="alert">
                   Task name is required
@@ -64,6 +83,7 @@ class TaskForm extends Component {
                   className="form-control"
                   name="priority"
                   id="inputTaskPriority"
+                  value={this.state.priority}
                   onChange={this.handleChange}>
                   <option>Select Priority</option>
                   <option value="High">High</option>
@@ -76,13 +96,8 @@ class TaskForm extends Component {
                   <button
                     type="submit"
                     className="btn btn-primary mr-2">
-                    Create task
+                    {this.state.newtask ? 'Create task' : 'Save' }
                   </button>
-                  {/* <button
-                    type="button"
-                    className="btn btn-primary mr-2">
-                    Save
-                  </button> */}
                   <Link 
                     className="btn btn-light"
                     to="../tasks">
@@ -98,11 +113,11 @@ class TaskForm extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapStateToProps = (state, props) => {
+  const existingTask = state.tasks.find((task) => task.id === props.match.params.id);
   return {
-    addTask: (task) => dispatch(addTask(task)),
-    
+    task: existingTask || {}
   }
-}
+};
  
-export default connect(null, mapDispatchToProps)(TaskForm);
+export default connect(mapStateToProps, { addTask, updateTask })(TaskForm);

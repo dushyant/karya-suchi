@@ -101,6 +101,9 @@
     flex-grow: 1;
     font-weight: bold;
     font-size: 1.1rem;
+    &.completed {
+      text-decoration: line-through;
+    }
   }
   .item-items {
     flex-grow: 1;
@@ -112,8 +115,13 @@
     margin: 0 6px;
   }
 
-  .item-delete p {
-    margin: 3px;
+  .item-delete {
+    p {
+      margin: 3px;
+    }
+    svg {
+      margin-top: 8px;
+    }
   }
 
 }

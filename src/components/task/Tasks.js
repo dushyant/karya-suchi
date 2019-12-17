@@ -6,25 +6,27 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTasks, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import './task.scss';
+import TaskItem from './TaskItem';
 
 class Tasks extends Component {
 
-  renderList = () => {
-    return this.props.tasks && this.props.tasks.map( item => {
-      console.log(JSON.stringify(item));
-      return (
-        <li key={item.task} className="list-group-item">
-          <div className="list-item d-flex">
-            <div className="flex-grow-1">
-              <p className="item-name"> { item.task } </p>
-              <span> 
-                Priority: { item.priority } 
-              </span>
-            </div>
-          </div>
-        </li>
-      )
-    })
+  renderTaskList = () => {
+    const { tasks } = this.props;
+    return(
+      <ul className="list-group list-group-flush">
+        {
+          tasks.map(item => <TaskItem key={item.id} task={item} />)
+        }
+      </ul>
+    )
+  }
+
+  renderNoItem = () => {
+    return (
+      <div className="message p-4">
+        No tasks. Add a new tasks.
+      </div>
+    )
   }
 
   render() {
@@ -43,12 +45,10 @@ class Tasks extends Component {
         </Link>
       </div>
       <div>
-        {/* <div className="message p-4">
-          No tasks. Add a new tasks.
-        </div> */}
-        <ul className="list-group list-group-flush">
-          { this.renderList() }
-        </ul>
+        {
+          this.props.tasks && this.props.tasks.length > 0 ? 
+          this.renderTaskList() : this.renderNoItem()
+        }
       </div>
     </div>
     );
