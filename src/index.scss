@@ -4,3 +4,26 @@
 @import "./assets/scss/bootstrap";
 
 
+.loading {
+  width: 75%;
+  margin: 50px auto;
+  text-align: center;
+  font-size: 2rem;
+
+  span {
+    margin-left: 10px;
+  }
+}
+
+.rotate {
+  animation: rotation 2s infinite linear;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
