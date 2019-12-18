@@ -1,17 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
-import App from './App';
+import App from './router/App';
 import * as serviceWorker from './serviceWorker';
 
 // Third-party
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
-
 import configureStore from "./store/configureStore";
 import { Provider } from "react-redux";
-
+import { firebase } from './config/firebaseConfig';
+import { history } from './router/App';
 import { fetchTasks } from './store/actions/taskAction'
 
 const store = configureStore();
@@ -24,6 +24,17 @@ const rootProvider = (
   </Provider>
 );
 
+let hasRendered = false;
+const renderApp = () => {
+  if (!hasRendered) {
+    ReactDOM.render(
+      rootProvider, 
+      document.getElementById('root')
+    );
+    hasRendered = true;
+  }
+};
+
 ReactDOM.render(
   <div className="loading">
     <FontAwesomeIcon className="rotate" icon={faSpinner} />
@@ -31,11 +42,22 @@ ReactDOM.render(
   </div>, 
   document.getElementById('root')
 );
-store.dispatch(fetchTasks()).then(() => {
-  ReactDOM.render(
-    rootProvider, 
-    document.getElementById('root')
-  );
+
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    const { uid } = user;
+    store.dispatch({type: 'LOGIN', uid});
+    store.dispatch(fetchTasks()).then(() => {
+      renderApp();
+      if (history.location.pathname === '/') {
+        history.push('/tasks');
+      }
+    });
+  } else {
+    // store.dispatch(logout());
+    renderApp();
+    history.push('/');
+  }
 });
 
 // If you want your app to work offline and load faster, you can change

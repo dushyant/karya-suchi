@@ -1,7 +1,16 @@
 const initState = {};
 
 const authReducer = (state = initState, action) => {
-   return state;
+   switch (action.type) {
+      case 'LOGIN':
+        return {
+          uid: action.uid
+        };
+      case 'LOGOUT':
+        return {};
+      default:
+        return state;
+    }
 }
 
 export default authReducer;
