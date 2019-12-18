@@ -8,7 +8,8 @@ export const setTasks = (tasks) => ({
 
 // Add Task
 export const addTask = (taskObj) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
     const {
       task = '',
       priority = '',
@@ -17,7 +18,7 @@ export const addTask = (taskObj) => {
     } = taskObj;
     const taskData = { task, priority, completed, createdAt };
     database
-      .ref('tasks')
+      .ref(`users/${uid}/tasks`)
       .push(taskData)
       .then((ref) => {
         const task = {id: ref.key, ...taskData};
@@ -30,8 +31,9 @@ export const addTask = (taskObj) => {
 
 // Remove Task
 export const removeTask = ({ id } = {}) => {
-  return (dispatch) => {
-    return database.ref(`tasks/${id}`).remove().then(() => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
+    return database.ref(`users/${uid}/tasks/${id}`).remove().then(() => {
       dispatch({ type: 'REMOVE_TASK', id });
     });
   };
@@ -39,8 +41,9 @@ export const removeTask = ({ id } = {}) => {
 
 // Update Task
 export const updateTask = (id, updates) => {
-  return (dispatch) => {
-    return database.ref(`tasks/${id}`).update(updates).then(() => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
+    return database.ref(`users/${uid}/tasks/${id}`).update(updates).then(() => {
       dispatch({ type: 'UPDATE_TASK', id, updates });
     });
   };
@@ -48,8 +51,9 @@ export const updateTask = (id, updates) => {
 
 // fetch Tasks from Firebase
 export const fetchTasks = () => {
-  return (dispatch) => {
-    return database.ref('tasks').once('value').then((snapshot) => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
+    return database.ref(`users/${uid}/tasks/`).once('value').then((snapshot) => {
 
       const tasks = [];
 

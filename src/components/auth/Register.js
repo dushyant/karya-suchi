@@ -1,12 +1,15 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import AuthForm from './AuthForm';
 import { Link } from 'react-router-dom';
+import { createUser } from '../../store/actions/authAction';
 import './auth.scss';
 
-export default class Register extends Component {
+class Register extends Component {
 
   registerHandler = (user) => {
     console.log("Register user", user);
+    this.props.createUser(user);
   }
 
   render() {
@@ -23,3 +26,5 @@ export default class Register extends Component {
     )
   }
 }
+
+export default connect(null, { createUser })(Register);

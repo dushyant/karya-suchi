@@ -6,7 +6,6 @@ import moment from 'moment';
 // Third-party
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTasks } from '@fortawesome/free-solid-svg-icons';
-import uuidv4 from 'uuid/v4';
 
 //Actions
 import { addTask, updateTask } from '../../store/actions/taskAction';
